@@ -10,8 +10,8 @@ CFLAGS = -Wall --pedantic
 all: server client
 
 client:
-	${CC} ${CFLAGS} ${SRC}klientTCP.c -o ${TARGET}klientTCP
+	${CC} ${CFLAGS} ${SRC}klientTCP.c -o ${TARGET}klientTCP.o
 
 server:
-	${CC} ${CFLAGS} ${SRC}serwerTCP.c -o ${TARGET}serwerTCP
+	${CC} ${CFLAGS} ${SRC}serwerTCP.c -o ${TARGET}serwerTCP.o
 
