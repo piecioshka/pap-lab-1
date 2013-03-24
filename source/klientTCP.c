@@ -48,10 +48,7 @@ void daytime(int connectionFd) {
   int in;
   char buffer[MAX_BUFFER + 1];
 
-  /* czytanie danych z polaczenia i zapis do bufora */
-  in = read(connectionFd, buffer, MAX_BUFFER);
-
-  while ( in > 0 ) {
+  while ( (in = read(connectionFd, buffer, MAX_BUFFER)) > 0 ) {
     buffer[in] = 0;
     printf("\n%s", buffer);
   }
