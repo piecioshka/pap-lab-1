@@ -4,7 +4,7 @@ SRC = source/
 TARGET = bin/
 
 CC = gcc
-CFLAGS = -c -Wall --pedantic
+CFLAGS = -Wall --pedantic
 
 # modes
 all: server client
