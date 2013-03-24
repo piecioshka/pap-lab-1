@@ -1,7 +1,6 @@
 /*
  *  Daytime Server (TCP)
  */
-
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdio.h>
@@ -15,8 +14,7 @@
 
 void HandleClient(int connectionFd);
 
-int main ( int argc, char *argv[])
-{
+int main ( int argc, char *argv[]) {
   int serverFd, connectionFd;
   struct sockaddr_in servaddr;
   int daytimePort;
@@ -25,7 +23,8 @@ int main ( int argc, char *argv[])
     fprintf(stderr, "Usage: %s <Server Port>\n", argv[0]);
     exit(1);
   }
-  daytimePort=atoi(argv[1]);
+
+  daytimePort = atoi(argv[1]);
 
   serverFd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -34,27 +33,25 @@ int main ( int argc, char *argv[])
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(daytimePort);
 
-  bind(serverFd, (struct sockaddr *)&servaddr, 
-        sizeof(servaddr));
+  bind(serverFd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
   listen(serverFd, MAX_BACKLOG);
 
   while ( 1 ) {
+    connectionFd = accept(serverFd, (struct sockaddr *)NULL, NULL);
 
-    connectionFd = accept(serverFd, 
-                           (struct sockaddr *)NULL, NULL);
     if (connectionFd >= 0) {
       HandleClient(connectionFd);
     }
   }
 }
-void HandleClient(int connectionFd)
-{
-  char timebuffer[MAX_BUFFER+1];
+
+void HandleClient(int connectionFd) {
+  char timebuffer[MAX_BUFFER + 1];
   time_t currentTime;
+
   currentTime = time(NULL);
-  snprintf(timebuffer, 
-           MAX_BUFFER, "%s\n", ctime(&currentTime));
+  snprintf(timebuffer, MAX_BUFFER, "%s\n", ctime(&currentTime));
   write(connectionFd, timebuffer, strlen(timebuffer));
   close(connectionFd);
 }

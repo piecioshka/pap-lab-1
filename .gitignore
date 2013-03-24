@@ -1,0 +1,8 @@
+bin/*
+temp/
+
+.idea/
+.settings/
+.metadata/
+.project
+
