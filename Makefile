@@ -7,7 +7,10 @@ CC = gcc
 CFLAGS = -Wall --pedantic
 
 # modes
-all: server client
+all: clean server client
+
+clean:
+	rm -rf ${TARGET}*.o
 
 client:
 	${CC} ${CFLAGS} ${SRC}klientTCP.c -o ${TARGET}klientTCP.o

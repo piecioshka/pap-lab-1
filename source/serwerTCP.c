@@ -52,6 +52,10 @@ void HandleClient(int connectionFd) {
 
   currentTime = time(NULL);
   snprintf(timebuffer, MAX_BUFFER, "%s\n", ctime(&currentTime));
+
+  /* client welcome message */
+  printf("Client\n");
+
   write(connectionFd, timebuffer, strlen(timebuffer));
   close(connectionFd);
 }
