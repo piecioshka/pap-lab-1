@@ -8,15 +8,15 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MAX_BUFFER 128
-#define DAYTIME_SERVER_PORT 13
+#define MAX_BUFFER            128
+#define DAYTIME_SERVER_PORT   13
 
-void daytime(int connection_descriptor);
+void daytime (int connection_descriptor);
+void send_ip_address (int connection_descriptor);
 
-int main (int argc, char *argv[] ) {
-  int connection_descriptor;
-  int port;
-  struct sockaddr_in servaddr;
+int main (int argc, char *argv[]) {
+  int connection_descriptor, daytime_port;
+  struct sockaddr_in server_address;
 
   if ((argc < 2) || (argc > 3)) {
     fprintf(stderr,"Usage: %s <Server IP> [<Daytime Port>]\n", argv[0]);
@@ -24,26 +24,33 @@ int main (int argc, char *argv[] ) {
   }
 
   if (argc == 3) {
-    port = atoi(argv[2]);
+    daytime_port = atoi(argv[2]);
   } else {
-    port = DAYTIME_SERVER_PORT;
+    daytime_port = DAYTIME_SERVER_PORT;
   }
 
   connection_descriptor = socket(PF_INET, SOCK_STREAM, 0);
 
-  memset(&servaddr, 0, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(port);
-  servaddr.sin_addr.s_addr = inet_addr(argv[1]);
+  memset(&server_address, 0, sizeof(server_address));
+  server_address.sin_family = AF_INET;
+  server_address.sin_addr.s_addr = inet_addr(argv[1]);
+  server_address.sin_port = htons(daytime_port);
 
-  connect(connection_descriptor, (struct sockaddr *)&servaddr, sizeof(servaddr));
+  connect(connection_descriptor, (struct sockaddr *) & server_address, sizeof(server_address));
+
+  send_ip_address(connection_descriptor);
 
   daytime(connection_descriptor);
 
   return(0);
 }
 
-void daytime(int connection_descriptor) {
+void send_ip_address (int connection_descriptor) {
+  char * ip_address = "piecioshka to haker\0";
+  write(connection_descriptor, ip_address, strlen(ip_address));
+}
+
+void daytime (int connection_descriptor) {
   int in;
   char buffer[MAX_BUFFER + 1];
 
