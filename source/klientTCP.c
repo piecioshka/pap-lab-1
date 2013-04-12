@@ -11,10 +11,10 @@
 #define MAX_BUFFER 128
 #define DAYTIME_SERVER_PORT 13
 
-void daytime(int connectionFd);
+void daytime(int connection_descriptor);
 
 int main (int argc, char *argv[] ) {
-  int connectionFd;
+  int connection_descriptor;
   int port;
   struct sockaddr_in servaddr;
 
@@ -29,30 +29,29 @@ int main (int argc, char *argv[] ) {
     port = DAYTIME_SERVER_PORT;
   }
 
-  connectionFd = socket(PF_INET, SOCK_STREAM, 0);
+  connection_descriptor = socket(PF_INET, SOCK_STREAM, 0);
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
   servaddr.sin_port = htons(port);
-
   servaddr.sin_addr.s_addr = inet_addr(argv[1]);
 
-  connect(connectionFd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+  connect(connection_descriptor, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
-  daytime(connectionFd);
+  daytime(connection_descriptor);
 
   return(0);
 }
 
-void daytime(int connectionFd) {
+void daytime(int connection_descriptor) {
   int in;
   char buffer[MAX_BUFFER + 1];
 
-  while ( (in = read(connectionFd, buffer, MAX_BUFFER)) > 0 ) {
+  while ( (in = read(connection_descriptor, buffer, MAX_BUFFER)) > 0 ) {
     buffer[in] = 0;
     printf("\n%s", buffer);
   }
 
-  close(connectionFd);
+  close(connection_descriptor);
 }
 

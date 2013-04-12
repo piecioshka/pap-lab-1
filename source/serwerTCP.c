@@ -12,51 +12,50 @@
 #define MAX_BACKLOG		5
 #define MAX_BUFFER		128
 
-void HandleClient(int connectionFd);
+void handle_client(int connection_descriptor);
 
-int main ( int argc, char *argv[]) {
-  int serverFd, connectionFd;
+int main (int argc, char *argv[]) {
+  int server_descriptor, connection_descriptor, daytime_port;
   struct sockaddr_in servaddr;
-  int daytimePort;
 
   if (argc != 2) {
     fprintf(stderr, "Usage: %s <Server Port>\n", argv[0]);
     exit(1);
   }
 
-  daytimePort = atoi(argv[1]);
+  daytime_port = atoi(argv[1]);
 
-  serverFd = socket(AF_INET, SOCK_STREAM, 0);
+  server_descriptor = socket(AF_INET, SOCK_STREAM, 0);
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(daytimePort);
+  servaddr.sin_port = htons(daytime_port);
 
-  bind(serverFd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+  bind(server_descriptor, (struct sockaddr *) & servaddr, sizeof(servaddr));
 
-  listen(serverFd, MAX_BACKLOG);
+  listen(server_descriptor, MAX_BACKLOG);
 
   while ( 1 ) {
-    connectionFd = accept(serverFd, (struct sockaddr *)NULL, NULL);
+    connection_descriptor = accept(server_descriptor, (struct sockaddr *) NULL, NULL);
 
-    if (connectionFd >= 0) {
-      HandleClient(connectionFd);
+    if (connection_descriptor >= 0) {
+      handle_client(connection_descriptor);
     }
   }
 }
 
-void HandleClient(int connectionFd) {
+void handle_client (int connection_descriptor) {
   char timebuffer[MAX_BUFFER + 1];
-  time_t currentTime;
+  time_t current_time;
 
-  currentTime = time(NULL);
-  snprintf(timebuffer, MAX_BUFFER, "%s\n", ctime(&currentTime));
+  current_time = time(NULL);
+  snprintf(timebuffer, MAX_BUFFER, "%s\n", ctime(&current_time));
 
   /* client welcome message */
   printf("Client\n");
 
-  write(connectionFd, timebuffer, strlen(timebuffer));
-  close(connectionFd);
+  write(connection_descriptor, timebuffer, strlen(timebuffer));
+  close(connection_descriptor);
 }
 
