@@ -24,70 +24,71 @@ static void daemonize(void);
 static int is_daemon = 0;
 
 int main (int argc, char *argv[]) {
-  int server_descriptor, connection_descriptor, daytime_port;
-  struct sockaddr_in server_address, cli_addr;
-  struct in_addr cli_ip;
-  socklen_t clilen;
-  
-  if (argc < 2) {
-    fprintf(stderr, "Usage: %s <Server Port>\n", argv[0]);
-    exit(1);
-  }
+    int server_descriptor, connection_descriptor, daytime_port;
+    struct sockaddr_in server_address, cli_addr;
+    struct in_addr cli_ip;
+    socklen_t clilen;
 
-  /* get port from param and convert this string to integer */
-  daytime_port = atoi(argv[1]);
-  
-  /* get mode -d - is_daemon */
-  
-  if (argc == 3 && (strcmp(argv[2],"-d") == 0)) {
-      daemonize();
-      is_daemon = 1;
-      openlog ("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-      syslog (LOG_NOTICE, "Successfully started is_daemon");
-      
-  }
-  signal(SIGTERM, sig_handler);
-  signal(SIGINT, sig_handler);
-  /* create socket */
-  server_descriptor = socket(AF_INET, SOCK_STREAM, 0);
-
-  /* set local IP address and port, which is sets by parameter */
-  memset(&server_address, 0, sizeof(server_address));
-  server_address.sin_family = AF_INET;
-  server_address.sin_addr.s_addr = htonl(INADDR_ANY);
-  server_address.sin_port = htons(daytime_port);
-
-  /* set local protocol address to socket */
-  bind(server_descriptor, (struct sockaddr *) & server_address, sizeof(server_address));
-
-  /* set server mode to listen clients */
-  listen(server_descriptor, MAX_BACKLOG);
-  clilen = sizeof(cli_addr);
-
-  while ( 1 ) {
-    connection_descriptor = accept(server_descriptor, (struct sockaddr *) &cli_addr, &clilen);
-    cli_ip = cli_addr.sin_addr;
-    if (is_daemon == 1){
-        syslog (LOG_NOTICE, "Client IP address is: %s", inet_ntoa(cli_ip));
-    } else {
-        printf("Client IP address is: %s\n", inet_ntoa(cli_ip));
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <Server Port>\n", argv[0]);
+        exit(1);
     }
-    if (connection_descriptor >= 0) {
-      /* get_client_ip_address (connection_descriptor); */
-      handle_client(connection_descriptor);
+
+    /* get port from param and convert this string to integer */
+    daytime_port = atoi(argv[1]);
+
+    /* get mode -d - is_daemon */
+
+    if (argc == 3 && (strcmp(argv[2],"-d") == 0)) {
+        daemonize();
+        is_daemon = 1;
+        openlog ("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+        syslog (LOG_NOTICE, "Successfully started is_daemon");
     }
-  }
+
+    signal(SIGTERM, sig_handler);
+    signal(SIGINT, sig_handler);
+
+    /* create socket */
+    server_descriptor = socket(AF_INET, SOCK_STREAM, 0);
+
+    /* set local IP address and port, which is sets by parameter */
+    memset(&server_address, 0, sizeof(server_address));
+    server_address.sin_family = AF_INET;
+    server_address.sin_addr.s_addr = htonl(INADDR_ANY);
+    server_address.sin_port = htons(daytime_port);
+
+    /* set local protocol address to socket */
+    bind(server_descriptor, (struct sockaddr *) & server_address, sizeof(server_address));
+
+    /* set server mode to listen clients */
+    listen(server_descriptor, MAX_BACKLOG);
+    clilen = sizeof(cli_addr);
+
+    while ( 1 ) {
+        connection_descriptor = accept(server_descriptor, (struct sockaddr *) & cli_addr, &clilen);
+        cli_ip = cli_addr.sin_addr;
+        if (is_daemon == 1){
+            syslog (LOG_NOTICE, "Client IP address is: %s", inet_ntoa(cli_ip));
+        } else {
+            printf("Client IP address is: %s\n", inet_ntoa(cli_ip));
+        }
+        if (connection_descriptor >= 0) {
+            /* get_client_ip_address (connection_descriptor); */
+            handle_client(connection_descriptor);
+        }
+    }
 }
 
 void handle_client (int connection_descriptor) {
-  char time_buffer[MAX_BUFFER + 1];
-  time_t current_time;
+    char time_buffer[MAX_BUFFER + 1];
+    time_t current_time;
 
-  current_time = time(NULL);
-  snprintf(time_buffer, MAX_BUFFER, "%s\n", ctime(&current_time));
+    current_time = time(NULL);
+    snprintf(time_buffer, MAX_BUFFER, "%s\n", ctime(&current_time));
 
-  write(connection_descriptor, time_buffer, strlen(time_buffer));
-  close(connection_descriptor);
+    write(connection_descriptor, time_buffer, strlen(time_buffer));
+    close(connection_descriptor);
 }
 
 static void daemonize (void) {
