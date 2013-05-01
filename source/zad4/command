@@ -1,0 +1,11 @@
+# check port of daytime service
+$ cat /etc/services | grep "daytime"
+
+# is daytime service is currently enabled?
+$ ....
+
+# how to enable/disable services?
+$ service daytime start/stop
+
+# connect to daytime with telnet
+$ telnet localhost 13

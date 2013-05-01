@@ -1,0 +1,4 @@
+# change current user to root
+$ su –
+$ sudo su
+$ su root

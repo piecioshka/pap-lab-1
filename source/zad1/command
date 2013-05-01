@@ -1,0 +1,2 @@
+# extract package to current directory
+$ tar xvf lab1-2.tar.gz .

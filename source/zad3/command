@@ -1,0 +1,27 @@
+# get ip address of my computer
+
+On *unix
+$ ifconfig
+
+On MacOS
+$ ifconfig
+
+On Windows
+$ ipconfig
+
+
+# check connection with my colleague
+$ ping sz123 # host or ip
+
+
+# all listen sockets
+$ netstat -l
+
+
+# all open sockets
+
+On *unix
+$ netstat -o
+
+On MacOS
+$ lsof -i | grep LISTEN
