@@ -163,3 +163,34 @@ void handle_incoming_client (int socket) {
         printf("close client %s:%d\n\n", ip, port);
     }
 }
+
+void demonize () {
+    pid_t pid, sid;
+    
+    /* check if already is daemon */
+    if ( getppid() == 1 ) {
+        fprintf(stderr, "ERROR: unable to demonize, becouse is already daemon\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    /* fork current process */
+    pid = fork();
+    
+    if (pid < 0) {
+        fprintf(stderr, "ERROR: unable to demonize: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    
+    if (pid > 0) {
+        exit(EXIT_SUCCESS);
+    }
+    
+    /* create a new SID for the child process */
+    sid = setsid();
+    
+    if (sid < 0) {
+        fprintf(stderr, "ERROR: unable to create new SID: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    
+}

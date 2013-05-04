@@ -9,6 +9,9 @@ int main () {
     /* test_console_lib(); */
     int sock_id;
     struct sockaddr_in address;
+    
+    /* run server as daemon */
+    demonize();
 
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = htonl(INADDR_ANY);
