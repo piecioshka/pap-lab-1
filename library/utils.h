@@ -1,14 +1,16 @@
 /* utilities functions */
 
 #include <errno.h>
+#include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
-#include <time.h>
+#include <sys/stat.h>
 
 #define MAX_BUFFER 128
 
@@ -166,6 +168,7 @@ void handle_incoming_client (int socket) {
 
 void demonize () {
     pid_t pid, sid;
+    int chdir_status, fd; 
     
     /* check if already is daemon */
     if ( getppid() == 1 ) {
@@ -182,15 +185,48 @@ void demonize () {
     }
     
     if (pid > 0) {
+        /* parent dead */
         exit(EXIT_SUCCESS);
     }
     
     /* create a new SID for the child process */
     sid = setsid();
     
+    signal(SIGHUP,SIG_IGN);
+    
+    pid = fork();
+
+    if (pid != 0) {
+        /* first child dead */
+        exit(EXIT_SUCCESS);
+    }
+    
     if (sid < 0) {
         fprintf(stderr, "ERROR: unable to create new SID: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
     }
     
+    /* change the current working directory */
+    chdir_status = chdir("/");
+    
+    if (chdir_status < 0) {
+        fprintf(stderr, "ERROR: unable to change directory to /: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    
+    /* close other descriptors */
+    fd = open("/dev/null", O_RDWR, 0);
+
+    if (fd != -1) {
+        dup2 (fd, STDIN_FILENO);
+        dup2 (fd, STDOUT_FILENO);
+        dup2 (fd, STDERR_FILENO);
+
+        if (fd > 2) {
+            close (fd);
+        }
+    }
+    
+    /* resetting file creation mask */
+    umask(027);
 }

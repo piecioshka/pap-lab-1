@@ -7,12 +7,12 @@ TARGET = bin/
 SRC = source/
  
 all:
-	@for number in {1..4} ; do \
-	    cat ${SRC}zad$$number/command ; \
-	    if [ $$number -lt 12 ]; then \
-		echo "------------------------------------------------------------" ; \
-	    fi ; \
-	done
+	#@for number in {1..4} ; do \
+	#    cat ${SRC}zad$$number/command ; \
+	#    if [ $$number -lt 12 ]; then \
+	#	echo "------------------------------------------------------------" ; \
+	#    fi ; \
+	#done
 	
 	@for number in {5..12} ; do \
 	    echo ${SRC}zad$$number/client.* ; \
