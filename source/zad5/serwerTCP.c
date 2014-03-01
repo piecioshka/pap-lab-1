@@ -11,6 +11,7 @@
 #include <syslog.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
 
 /* max number of client connection at the same time */
 #define MAX_BACKLOG		5
