@@ -2,10 +2,14 @@
 $ cat /etc/services | grep "daytime"
 
 # is daytime service is currently enabled?
-$ ....
+$ vim /etc/xinetd.d/daytime-stream
+disable = yes # wyłączenie
+disable = no # właczenie
 
 # how to enable/disable services?
-$ service daytime start/stop
+$ service daytime-stream start/stop
+$ service daytime-dgram start/stop
+$ service xinetd.d restart
 
 # connect to daytime with telnet
 $ telnet localhost 13

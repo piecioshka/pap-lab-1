@@ -230,3 +230,4 @@ void demonize () {
     /* resetting file creation mask */
     umask(027);
 }
+
