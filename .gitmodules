@@ -1,0 +1,3 @@
+[submodule "source/lib"]
+	path = source/lib
+	url = git@github.com:piecioshka/pap-lib.git
