@@ -1,6 +1,6 @@
 /* server - lab1-2 - zadanie 7 */
 
-#include "../../library/utils.h"
+#include "../lib/libnetutils.h"
 
 #define PORT 13
 #define MAX_QUEUE 128

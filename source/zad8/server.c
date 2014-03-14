@@ -1,6 +1,6 @@
 /* server - lab3-4 - zadanie 8 */
 
-#include "../../library/utils.h"
+#include "../lib/libnetutils.h"
 
 #define PORT 13
 #define MAX_QUEUE 128
@@ -9,7 +9,7 @@ int main () {
     /* test_console_lib(); */
     int sock_id;
     struct sockaddr_in address;
-    
+
     /* run server as daemon */
     demonize();
 

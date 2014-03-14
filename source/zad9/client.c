@@ -1,6 +1,6 @@
 /* client - lab3-4 - zadanie 9 */
 
-#include "../../library/utils.h"
+#include "../lib/libnetutils.h"
 
 #define PORT 13
 #define DESC_IP "127.0.0.1"
