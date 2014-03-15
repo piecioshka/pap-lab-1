@@ -1,5 +1,8 @@
 /**
- * 9. Zmodyfikuj serwer z poprzedniego zadania tak, aby można było uruchamiać go w dwóch trybach: interakcyjnym (przyłączony do terminala) lub jako demon (funkcja daemon). Jak sprawdzić, że serwer pracuje w trybie demona?
+ * 9. Zmodyfikuj serwer z poprzedniego zadania tak, aby można było uruchamiać go w dwóch trybach:
+ * interakcyjnym (przyłączony do terminala) lub jako demon (funkcja daemon).
+ *
+ * Jak sprawdzić, że serwer pracuje w trybie demona?
  *   - Wprowadź możliwość zamykania serwera (za pomocą sygnału).
  *   - W trybie interakcyjnym informacja o pracy serwera jest wyświetlana na ekranie.
  *   W trybie demona informacja jest przesyłana do pliku logu. Załóż, że serwer współpracuje z programem syslog.
@@ -17,17 +20,64 @@
  */
 
 #include "../lib/libnetutils.h"
+#include <syslog.h>
 
 #define PORT 13
 #define MAX_QUEUE 128
 
-int main () {
-    /* test_console_lib(); */
+int is_daemon = 0;
+
+void sigint_handler(int status) {
+    if (is_daemon) {
+        syslog(LOG_NOTICE, "Successfully shutdown daemon");
+        /* zamykamy komunikację z serwerem syslog */
+        closelog();
+    } else {
+        printf("Kończymy działanie programu\n");
+        fflush(stdout);
+    }
+    /* wyłączamy aplikację */
+    exit(1);
+}
+
+void create_daemon() {
+    demonize();
+    if (is_daemon) {
+        openlog("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+        syslog(LOG_NOTICE, "Successfully started daemon");
+    } else {
+        printf("Ogh... you create daemon process\n");
+    }
+}
+
+int main (int argc, char * argv[]) {
+    /* availability options */
+    char * opts = "d";
+    /* processed option */
+    int c;
+
     int sock_id;
     struct sockaddr_in address;
 
-    /* run server as daemon */
-    demonize();
+    /* dodanie handlera na SIGINT */
+    signal(SIGINT, sigint_handler);
+
+    /* check if define more than one option */
+    if (argc == 2) {
+        /* iteration by each of option */
+        while ((c = getopt(argc, argv, opts)) != -1) {
+            switch (c) {
+                /* for 'u' run daemon */
+                case 'd':
+                    create_daemon();
+                    break;
+                /* for unrecognized option */
+                case '?':
+                default:
+                    printf("Ignore passed options\n");
+            }
+        }
+    }
 
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -46,7 +96,7 @@ int main () {
     listen_for_client(sock_id, MAX_QUEUE);
 
     /* handle client */
-    handle_incoming_client(sock_id);
+    handle_incoming_client(sock_id, 1);
 
     return 0;
 }

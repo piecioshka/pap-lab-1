@@ -29,7 +29,7 @@ int main () {
     listen_for_client(sock_id, MAX_QUEUE);
 
     /* handle client */
-    handle_incoming_client(sock_id);
+    handle_incoming_client(sock_id, 0);
 
     return 0;
 }

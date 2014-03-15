@@ -1,5 +1,8 @@
 /**
- * 9. Zmodyfikuj serwer z poprzedniego zadania tak, aby można było uruchamiać go w dwóch trybach: interakcyjnym (przyłączony do terminala) lub jako demon (funkcja daemon). Jak sprawdzić, że serwer pracuje w trybie demona?
+ * 9. Zmodyfikuj serwer z poprzedniego zadania tak, aby można było uruchamiać go w dwóch trybach:
+ * interakcyjnym (przyłączony do terminala) lub jako demon (funkcja daemon).
+ *
+ * Jak sprawdzić, że serwer pracuje w trybie demona?
  *   - Wprowadź możliwość zamykania serwera (za pomocą sygnału).
  *   - W trybie interakcyjnym informacja o pracy serwera jest wyświetlana na ekranie.
  *   W trybie demona informacja jest przesyłana do pliku logu. Załóż, że serwer współpracuje z programem syslog.

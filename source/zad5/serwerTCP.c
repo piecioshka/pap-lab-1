@@ -50,8 +50,8 @@ int main (int argc, char *argv[]) {
     if (argc == 3 && (strcmp(argv[2],"-d") == 0)) {
         daemonize();
         is_daemon = 1;
-        openlog ("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-        syslog (LOG_NOTICE, "Successfully started is_daemon");
+        openlog("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+        syslog(LOG_NOTICE, "Successfully started is_daemon");
     }
 
     signal(SIGTERM, sig_handler);
@@ -101,7 +101,7 @@ void handle_client (int connection_descriptor) {
 
 static void daemonize (void) {
     pid_t pid, sid;
-    int fd; 
+    int fd;
 
     /* already a is_daemon */
     if ( getppid() == 1 ) return;
@@ -110,11 +110,11 @@ static void daemonize (void) {
     pid = fork();
     if (pid < 0) {
         exit(EXIT_FAILURE);
-    }   
+    }
 
     if (pid > 0) {
         exit(EXIT_SUCCESS); /* killing the parent process */
-    }   
+    }
 
     /* at this point we are executing as the child process */
 
