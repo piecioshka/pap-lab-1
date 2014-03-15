@@ -1,4 +1,6 @@
-/* client - lab3-4 - zadanie 8 */
+/**
+ * 8. Uruchom własny serwer usługi time w trybie demona. Jakie modyfikacje musisz wykonać?
+ */
 
 #include "../lib/libnetutils.h"
 

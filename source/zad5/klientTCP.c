@@ -1,6 +1,13 @@
-/*
+/**
+ * 5. Skompiluj programy klientTCP.c i serwerTCP.c z pliku lab1.tar.gz.
+ * Są to programy implementujące usługę daytime. Sprawdź czy działają poprawnie.
+ * a) Najpierw sprawdź klienta ze standardową usługą daytime uruchamianą z xinetd.
+ * b) Następnie sprawdź działanie całej aplikacji (serwera i klienta).
+ * c) Uzupełnij programy klienta i serwera o obsługę błędów.
+ *
  *  Daytime Client (TCP)
  */
+
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdio.h>

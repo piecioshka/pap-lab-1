@@ -1,4 +1,6 @@
-/* client - lab1-2 - zadanie 7 */
+/**
+ * 7. Do serwera z poprzedniego zadania dodaj wyświetlanie informacji o adresie IP klienta, który skorzystał z usługi.
+ */
 
 #include "../lib/libnetutils.h"
 
