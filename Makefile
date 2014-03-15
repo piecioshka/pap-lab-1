@@ -23,6 +23,12 @@ zad9:
 	${CC} ${CFLAGS} ${SRC}$@/klientTCP.c -o ${TARGET}$@/klientTCP.o
 	${CC} ${CFLAGS} ${SRC}$@/serwerTCP.c -o ${TARGET}$@/serwerTCP.o
 
+zad10:
+	${CC} ${CFLAGS} ${SRC}$@/main.c -o ${TARGET}$@/main.o
+
+zad11:
+	${CC} ${CFLAGS} ${SRC}$@/main.c -o ${TARGET}$@/main.o
+
 clean:
 	find ${TARGET} -name "*.o" | xargs rm -rf
 

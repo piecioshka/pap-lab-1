@@ -42,12 +42,8 @@ void sigint_handler(int status) {
 
 void create_daemon() {
     demonize();
-    if (is_daemon) {
-        openlog("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-        syslog(LOG_NOTICE, "Successfully started daemon");
-    } else {
-        printf("Ogh... you create daemon process\n");
-    }
+    openlog("serwerTCP", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+    syslog(LOG_NOTICE, "Successfully started daemon");
 }
 
 int main (int argc, char * argv[]) {
