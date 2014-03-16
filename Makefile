@@ -29,6 +29,9 @@ zad10:
 zad11:
 	${CC} ${CFLAGS} ${SRC}$@/main.c -o ${TARGET}$@/main.o
 
+zad12:
+	${CC} ${CFLAGS} ${SRC}$@/tcpscan.c -o ${TARGET}$@/tcpscan.o
+
 clean:
 	find ${TARGET} -name "*.o" | xargs rm -rf
 
