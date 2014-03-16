@@ -44,10 +44,9 @@ void resolve_number(char * number_s, char * proto) {
     int serv_port = atoi(number_s);
     int number = htons(serv_port);
     short port;
-
-    printf("resolve number %d / %s\n\n", serv_port, proto);
     struct servent * ent;
 
+    printf("resolve number %d / %s\n\n", serv_port, proto);
     printf("querying for number=%d, proto=%s\n", number, proto);
 
     /* get the service record */
