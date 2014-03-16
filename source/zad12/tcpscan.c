@@ -34,6 +34,7 @@ char * resolve_domain(char * domain) {
 }
 
 int check_connection(char * host, int port) {
+    int status;
     int socket_id;
     struct sockaddr_in address;
 
@@ -49,7 +50,7 @@ int check_connection(char * host, int port) {
         exit(EXIT_FAILURE);
     }
 
-    int status = connect(socket_id, (struct sockaddr *) & address, sizeof(struct sockaddr));
+    status = connect(socket_id, (struct sockaddr *) & address, sizeof(struct sockaddr));
 
     if (close(socket_id) == -1) {
         fprintf(stderr, "ERROR: unable to close connection for socket %d: %s\n", socket_id, strerror(errno));
@@ -72,8 +73,8 @@ char * resolve_number(int serv_port, char * proto) {
 }
 
 void scan_tcp(char * host, int start_port, int end_port) {
-    printf("Running scan...\n");
     int port;
+    printf("Running scan...\n");
 
     host = resolve_domain(host);
 
