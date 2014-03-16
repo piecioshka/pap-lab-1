@@ -15,11 +15,11 @@
 #include "../lib/libnetutils.h"
 
 void resolve_domain(char * domain) {
-    printf("resolve domain %s\n", domain);
-
     struct hostent * he;
     int i;
     struct in_addr **addr_list;
+
+    printf("resolve domain %s\n", domain);
 
     if ((he = gethostbyname(domain)) == NULL) {
         fprintf(stderr, "Bad domain name\n");
@@ -34,10 +34,10 @@ void resolve_domain(char * domain) {
 }
 
 void resolve_address(char * ip) {
-    printf("resolve ip address %s\n", ip);
-
     struct hostent *he;
     struct in_addr ipv4addr;
+
+    printf("resolve ip address %s\n", ip);
 
     inet_pton(AF_INET, ip, &ipv4addr);
     if ((he = gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET)) == NULL) {
