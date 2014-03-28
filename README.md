@@ -1,6 +1,7 @@
 pap-lab-1
 =========
 
+Projekt na "zaliczenie":
 * temat należy wymyśleć
 * serwer wielodostepny metodami jakimi sie uczymy, jezyk c
 * klient w dowolnym jezyku

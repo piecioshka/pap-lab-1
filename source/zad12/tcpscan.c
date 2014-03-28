@@ -14,6 +14,8 @@
 #include <string.h>
 #include "../lib/libnetutils.h"
 
+#define PORT_NUMBERS 65536
+
 void throw_bad_params() {
     fprintf(stderr, "ERROR: Niepoprawna liczba parametrów\n");
     fprintf(stderr, "Użycie: ./tcpscan.o HOST [PORT_START=0] [PORT_END=65535]\n");
@@ -96,7 +98,7 @@ int main(int argc, char * argv[]) {
     } else {
         char * host = argv[1];
         int start_port = 0;
-        int end_port = 65535;
+        int end_port = PORT_NUMBERS - 1;
 
         if (argc == 4) {
             start_port = atoi(argv[2]);
