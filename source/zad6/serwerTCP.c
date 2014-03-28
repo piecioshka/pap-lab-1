@@ -11,7 +11,6 @@
 #define MAX_QUEUE 128
 
 int main () {
-    /* test_console_lib(); */
     int sock_id;
     struct sockaddr_in address;
 
