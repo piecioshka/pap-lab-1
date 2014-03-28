@@ -8,7 +8,6 @@
 #define DESC_IP "127.0.0.1"
 
 int main () {
-    /* test_console_lib(); */
     int sock_id;
     struct sockaddr_in address;
 
