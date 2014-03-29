@@ -10,9 +10,12 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netdb.h>
-#include <stdlib.h>
 #include <string.h>
-#include "../lib/libnetutils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <errno.h>
 
 #define PORT_NUMBERS 65536
 

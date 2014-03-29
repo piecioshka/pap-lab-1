@@ -12,12 +12,6 @@
 
 int main () {
     int sock_id;
-    struct sockaddr_in address;
-
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = inet_addr(DESC_IP);
-    address.sin_port = htons(PORT);
-    memset( &( address.sin_zero ), '\0', 8 );
 
     printf("=== create client instance ===\n\n");
 
@@ -25,7 +19,7 @@ int main () {
     sock_id = create_socket_tcp();
 
     /* use create socket to connect address */
-    create_connection_tcp(sock_id, address);
+    create_connection_tcp(sock_id, DESC_IP, PORT);
 
     /* receive data from server */
     receive_from_server(sock_id);

@@ -53,7 +53,6 @@ int main (int argc, char * argv[]) {
     int c;
 
     int sock_id;
-    struct sockaddr_in address;
 
     /* dodanie handlera na SIGINT */
     signal(SIGINT, sigint_handler);
@@ -75,18 +74,13 @@ int main (int argc, char * argv[]) {
         }
     }
 
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = htonl(INADDR_ANY);
-    address.sin_port = htons(PORT);
-    memset( &( address.sin_zero ), '\0', 8 );
-
     printf("=== create server ===\n\n");
 
     /* create socket */
     sock_id = create_socket_tcp();
 
     /* bind server to defined port */
-    bind_port(sock_id, address);
+    bind_port(sock_id, PORT);
 
     /* server waiting for client */
     listen_for_client_tcp(sock_id, MAX_QUEUE);

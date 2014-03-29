@@ -11,18 +11,21 @@
 #include <netdb.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../lib/libnetutils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <errno.h>
 
 void resolve_domain(char * domain) {
     struct hostent * he;
     int i;
     struct in_addr **addr_list;
 
-    printf("resolve domain %s\n", domain);
+    printf("Resolve domain %s\n", domain);
 
     if ((he = gethostbyname(domain)) == NULL) {
-        fprintf(stderr, "Bad domain name\n");
+        fprintf(stderr, "ERROR: Bad domain name\n");
         exit(1);
     }
 
@@ -37,11 +40,11 @@ void resolve_address(char * ip) {
     struct hostent *he;
     struct in_addr ipv4addr;
 
-    printf("resolve ip address %s\n", ip);
+    printf("Resolve ip address %s\n", ip);
 
     inet_pton(AF_INET, ip, &ipv4addr);
     if ((he = gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET)) == NULL) {
-        fprintf(stderr, "Bad IP address name\n");
+        fprintf(stderr, "ERROR: Bad IP address name\n");
         exit(1);
     }
     printf("Hostname: %s\n", he->h_name);
@@ -54,7 +57,7 @@ int main(int argc, char * argv[]) {
     int c;
 
     if (argc < 2) {
-        fprintf(stderr, "Zbyt malo parametrów\n");
+        fprintf(stderr, "ERROR: Zbyt malo parametrów\n");
         exit(1);
     } else {
         while ((c = getopt(argc, argv, opts)) != -1) {
@@ -76,4 +79,3 @@ int main(int argc, char * argv[]) {
 
     exit(0);
 }
-

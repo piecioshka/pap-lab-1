@@ -11,8 +11,11 @@
 #include <netdb.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../lib/libnetutils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <errno.h>
 
 void resolve_name(char * servname, char * proto) {
     int i;
@@ -20,8 +23,7 @@ void resolve_name(char * servname, char * proto) {
     struct servent * ent;
 
     printf("resolve name %s / %s\n\n", servname, proto);
-
-    printf("querying for servname=%s, proto=%s\n", servname, proto); 
+    printf("querying for servname=%s, proto=%s\n", servname, proto);
 
     /* get the service record */
     if((ent = getservbyname(servname, proto)) == NULL) {
@@ -72,7 +74,7 @@ int main(int argc, char * argv[]) {
     int c;
 
     if (argc < 2) {
-        fprintf(stderr, "Zbyt malo parametrów\n");
+        fprintf(stderr, "ERROR: Zbyt malo parametrów\n");
         exit(1);
     } else {
         while ((c = getopt(argc, argv, opts)) != -1) {
