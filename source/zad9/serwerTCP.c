@@ -89,7 +89,7 @@ int main (int argc, char * argv[]) {
     bind_port(sock_id, address);
 
     /* server waiting for client */
-    listen_for_client(sock_id, MAX_QUEUE);
+    listen_for_client_tcp(sock_id, MAX_QUEUE);
 
     /* handle client */
     handle_incoming_client(sock_id, 1);
