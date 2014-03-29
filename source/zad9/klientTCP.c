@@ -39,7 +39,7 @@ int main () {
     sock_id = create_socket_tcp();
 
     /* use create socket to connect address */
-    create_connection(sock_id, address);
+    create_connection_tcp(sock_id, address);
 
     /* receive data from server */
     receive_from_server(sock_id);
