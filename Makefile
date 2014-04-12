@@ -32,6 +32,13 @@ zad11:
 zad12:
 	${CC} ${CFLAGS} ${SRC}$@/tcpscan.c -o ${TARGET}$@/tcpscan.o
 
+zad13:
+	${CC} ${CFLAGS} ${SRC}$@/klientTCP.c -o ${TARGET}$@/klientTCP.o
+	${CC} ${CFLAGS} ${SRC}$@/serwerTCP.c -o ${TARGET}$@/serwerTCP.o
+
+zad14:
+	${CC} ${CFLAGS} ${SRC}$@/klientTCP.c -o ${TARGET}$@/klientTCP.o
+
 clean:
 	find ${TARGET} -name "*.o" | xargs rm -rf
 

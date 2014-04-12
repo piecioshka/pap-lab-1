@@ -86,7 +86,7 @@ int main (int argc, char * argv[]) {
     listen_for_client_tcp(sock_id, MAX_QUEUE);
 
     /* handle client */
-    handle_incoming_client(sock_id, 1);
+    handle_incoming_client(sock_id, send_time_to_socket, 1);
 
     return 0;
 }
