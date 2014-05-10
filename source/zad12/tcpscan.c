@@ -70,7 +70,7 @@ char * resolve_number(int serv_port, char * proto) {
     struct servent * ent;
     char * name = "uknown";
 
-    if((ent = getservbyport(number, proto)) != NULL) {
+    if ((ent = getservbyport(number, proto)) != NULL) {
         name = ent->s_name;
     }
 
