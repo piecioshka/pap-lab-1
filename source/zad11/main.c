@@ -26,7 +26,7 @@ void resolve_name(char * servname, char * proto) {
     printf("querying for servname=%s, proto=%s\n", servname, proto);
 
     /* get the service record */
-    if((ent = getservbyname(servname, proto)) == NULL) {
+    if ((ent = getservbyname(servname, proto)) == NULL) {
         perror("getservbyname returned NULL");
         exit(1);
     }
@@ -52,7 +52,7 @@ void resolve_number(char * number_s, char * proto) {
     printf("querying for number=%d, proto=%s\n", number, proto);
 
     /* get the service record */
-    if((ent = getservbyport(number, proto)) == NULL) {
+    if ((ent = getservbyport(number, proto)) == NULL) {
         perror("getservbyname returned NULL");
         exit(1);
     }
