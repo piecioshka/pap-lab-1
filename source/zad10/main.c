@@ -30,7 +30,7 @@ void resolve_domain(char * domain) {
     }
 
     addr_list = (struct in_addr **)he->h_addr_list;
-    for(i = 0; addr_list[i] != NULL; i++) {
+    for (i = 0; addr_list[i] != NULL; i++) {
         printf("IP Address: %s ", inet_ntoa(*addr_list[i]));
     }
     printf("\n");
