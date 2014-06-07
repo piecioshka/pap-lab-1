@@ -17,5 +17,11 @@
 *.app
 
 # IDE
-*.swp
+nbproject/
 .idea/
+
+# App
+certificate/
+
+# OS
+*.swp
