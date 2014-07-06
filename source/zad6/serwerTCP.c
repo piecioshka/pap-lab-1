@@ -12,6 +12,7 @@
 
 int main () {
     int sock_id;
+
     printf("=== create server ===\n\n");
 
     /* create socket */
@@ -28,4 +29,3 @@ int main () {
 
     return 0;
 }
-

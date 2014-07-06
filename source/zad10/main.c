@@ -57,7 +57,7 @@ int main(int argc, char * argv[]) {
     int c;
 
     if (argc < 2) {
-        fprintf(stderr, "ERROR: Zbyt malo parametrów\n");
+        fprintf(stderr, "ERROR: Number of params is not enough\n");
         exit(1);
     } else {
         while ((c = getopt(argc, argv, opts)) != -1) {
