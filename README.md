@@ -7,3 +7,7 @@ Projekt na "zaliczenie":
 * klient w dowolnym jezyku
 * logowanie do niej
 * projekt musi mieć dokumentację oraz automatyczną dokumentację doxygen
+
+## License
+
+[The MIT License](http://piecioshka.mit-license.org) @ 2026
